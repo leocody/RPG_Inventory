@@ -4,6 +4,7 @@ import constant as C
 class App:
     def __init__(self):
         pyxel.init(C.SCREEN_WIDTH, C.SCREEN_HEIGHT, caption="Leo's Inventory", quit_key=True)
+        pyxel.load("assets/Leo_Inventory.pyxres")
         self.mainscreen = Mainscreen()
         pyxel.run(self.update, self.draw)
 
@@ -18,18 +19,28 @@ class Mainscreen:
         self.inventory = Inventory()
         self.item_selection = Item_Selection()
 
-
     def draw(self):
         self.inventory.draw()
         self.item_selection.draw()
+
 class Item_Selection:
     def __init__(self):
-        self.selectable_items = [C.KIND_YAKUSOU, C.KIND_TOKUYAKUSOU, C.KIND_PET, C.KIND_MONEY, C.KIND_CLAW]
+        self.selectable_items_kinds = [
+            C.KIND_POSTION, 
+            C.KIND_KEY, 
+            C.KIND_BOW, 
+            C.KIND_SHIELD, 
+            C.KIND_SWORD
+        ]
 
     def select(self, item_number):
         pass
+
     def draw(self):
-        pass
+        y_counter = 0
+        for item_kind in self.selectable_items_kinds:
+            pyxel.blt(0, y_counter, 0, item_kind[0], item_kind[1], 16, 16)
+            y_counter += 30
 
 class Inventory:
     def __init__(self):
