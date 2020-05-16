@@ -59,7 +59,19 @@ class Item:
     def draw(self, x, y):
         pass
     def increment(self):
-        pass
+        if self.amount >= C.MAX_AMOUNT:
+            raise CanNotIncrement()
+        self.amount += 1
     def decrement(self):
-        pass
+        if self.amount <= C.MIN_AMOUNT:
+            raise CanNotDecrement()
+        self.amount -= 1
+
+class CanNotIncrement(Exception):
+    pass
+
+class CanNotDecrement(Exception):
+    pass
+
 App()
+
