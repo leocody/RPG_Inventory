@@ -30,6 +30,7 @@ class Mainscreen:
 
     def draw(self):
         pyxel.cls(0)
+
         self.inventory.draw()
         self.item_selection.draw()
     
@@ -104,6 +105,7 @@ class Inventory:
         for item in self.items:
             item.draw(140, y_counter)
             y_counter += 30
+        pyxel.rectb(140, 30 * self.selected_item_index, 16, 16, pyxel.COLOR_LIGHTBLUE)
             
             
 
@@ -118,6 +120,7 @@ class Item:
     def draw(self, x, y):
         pyxel.blt(x, y, 0, self.kind[0],  self.kind[1], 16, 16)
         pyxel.text(x + 16, y + 16, str(self.amount), pyxel.COLOR_GREEN)
+
 
     def increment(self):
         if self.amount >= C.MAX_AMOUNT:
