@@ -13,7 +13,12 @@ class App:
         self.mainscreen.draw()
 
     def update(self):
-        self.mainscreen.update()
+        try:
+            self.mainscreen.update()
+        except CanNotIncrement:
+            print("CanNotIncrementError: Can't add to 8 items")
+            print("leo@Mac-mini Inventory % /Users/leo/.pyenv/versions/3.8.1/bin/python /Users/leo/Documents/Python/Inventory/inventory.py")
+
 
 class Mainscreen:
     def __init__(self):
@@ -25,6 +30,7 @@ class Mainscreen:
         self.item_selection.draw()
     
     def update(self):
+
         if pyxel.btnp(pyxel.KEY_1):
             self.inventory.add(Item(C.KIND_POSTION))
 
@@ -68,12 +74,10 @@ class Inventory:
     #   then it will incremet amount of item.
     # Otherwise it will append choosed_item to item_list
     def add(self, choosed_item):
-        
         for find_item in self.items:    
             if find_item.kind == choosed_item.kind:
                 find_item.increment()
                 return
-
         self.items.append(choosed_item)
 
 
