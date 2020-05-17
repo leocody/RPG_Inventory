@@ -64,8 +64,20 @@ class Inventory:
         self.items = []
         self.selected_item_index = 0
 
-    def add(self, item):
-        self.items.append(item)
+    # if item_list contains choosed_item
+    #   then it will incremet amount of item.
+    # Otherwise it will append choosed_item to item_list
+    def add(self, choosed_item):
+        
+        for find_item in self.items:    
+            if find_item.kind == choosed_item.kind:
+                find_item.increment()
+                return
+
+        self.items.append(choosed_item)
+
+
+
 
     def select_down(self):
         pass
