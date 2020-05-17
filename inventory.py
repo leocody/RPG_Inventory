@@ -50,6 +50,13 @@ class Mainscreen:
 
         if pyxel.btnp(pyxel.KEY_5):
             self.inventory.add(Item(C.KIND_SWORD))
+        
+        if pyxel.btnp(pyxel.KEY_DOWN):
+            self.inventory.select_down()
+
+        if pyxel.btnp(pyxel.KEY_UP):
+            self.inventory.select_up()
+        
 
 class Item_Selection:
     def __init__(self):
@@ -92,10 +99,13 @@ class Inventory:
 
 
     def select_down(self):
-        pass
+        self.selected_item_index += 1
+        self.selected_item_index %= C.MAX_KIND
 
     def select_up(self):
-        pass
+        self.selected_item_index -= 1
+        self.selected_item_index += C.MAX_AMOUNT
+        self.selected_item_index %= 4
 
     def use_selected_item(self):
         pass
