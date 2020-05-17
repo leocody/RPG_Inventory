@@ -21,6 +21,9 @@ class App:
         except BoundaryAppendError:
             print("BoundaryAppendError: Can't add to 4 kinds of items")
             print("leo@Mac-mini Inventory % /Users/leo/.pyenv/versions/3.8.1/bin/python /Users/leo/Documents/Python/Inventory/inventory.py")
+        except ItemNotFoundError:
+            print("ItemNotFoundError: Item not found")
+            print("leo@Mac-mini Inventory % /Users/leo/.pyenv/versions/3.8.1/bin/python /Users/leo/Documents/Python/Inventory/inventory.py")
 
 
 class Mainscreen:
@@ -56,6 +59,9 @@ class Mainscreen:
 
         if pyxel.btnp(pyxel.KEY_UP):
             self.inventory.select_up()
+        
+        if pyxel.btnp(pyxel.KEY_SPACE):
+            self.inventory.use_selected_item()
         
 
 class Item_Selection:
@@ -95,9 +101,6 @@ class Inventory:
         else:
             raise BoundaryAppendError
 
-
-
-
     def select_down(self):
         self.selected_item_index += 1
         self.selected_item_index %= C.MAX_KIND
@@ -108,7 +111,14 @@ class Inventory:
         self.selected_item_index %= 4
 
     def use_selected_item(self):
-        pass
+        if len(self.items) == self.selected_item_index:
+                raise ItemNotFoundError
+        using_item = self.items[self.selected_item_index]
+        if using_item.amount >= 2:
+            using_item.decrement()
+        else:
+            self.items.pop(self.selected_item_index)
+
 
     def draw(self):
         y_counter = 0
@@ -125,7 +135,7 @@ class Item:
         self.amount = 1
 
     def __repr__(self):
-        return "Item"
+        return "Kind : " + self.kind[2] + " Amount: " + str(self.amount)  
 
     def draw(self, x, y):
         pyxel.blt(x, y, 0, self.kind[0],  self.kind[1], 16, 16)
@@ -149,5 +159,7 @@ class CanNotDecrement(Exception):
 
 class BoundaryAppendError(Exception):
     pass
-App()
 
+class ItemNotFoundError(Exception):
+    pass
+App()
