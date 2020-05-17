@@ -18,6 +18,9 @@ class App:
         except CanNotIncrement:
             print("CanNotIncrementError: Can't add to 8 items")
             print("leo@Mac-mini Inventory % /Users/leo/.pyenv/versions/3.8.1/bin/python /Users/leo/Documents/Python/Inventory/inventory.py")
+        except BoundaryAppendError:
+            print("BoundaryAppendError: Can't add to 4 kinds of items")
+            print("leo@Mac-mini Inventory % /Users/leo/.pyenv/versions/3.8.1/bin/python /Users/leo/Documents/Python/Inventory/inventory.py")
 
 
 class Mainscreen:
@@ -26,6 +29,7 @@ class Mainscreen:
         self.item_selection = Item_Selection()
 
     def draw(self):
+        pyxel.cls(0)
         self.inventory.draw()
         self.item_selection.draw()
     
@@ -78,7 +82,10 @@ class Inventory:
             if find_item.kind == choosed_item.kind:
                 find_item.increment()
                 return
-        self.items.append(choosed_item)
+        if not len(self.items) >= C.MAX_KIND:
+            self.items.append(choosed_item)
+        else:
+            raise BoundaryAppendError
 
 
 
@@ -104,7 +111,7 @@ class Item:
     def  __init__(self, kind):
         self.kind = kind
         self.amount = 1
-    
+
     def __repr__(self):
         return "Item"
 
@@ -127,5 +134,7 @@ class CanNotIncrement(Exception):
 class CanNotDecrement(Exception):
     pass
 
+class BoundaryAppendError(Exception):
+    pass
 App()
 
