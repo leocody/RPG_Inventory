@@ -8,6 +8,6 @@ KIND_HELMET = (48, 16, "Helmet", 5, 100)
 KIND_APPLE = (0, 16, "Apple", 5 ,125)
 KIND_BOW = (16, 16, "Bow", 25, 10)
 KIND_DIAMOND = (32, 16, "Diamond", 25, 30)
-MAX_AMOUNT = 8
+MAX_AMOUNT = 5
 MIN_AMOUNT = 1
 MAX_KIND = 5

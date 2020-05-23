@@ -19,7 +19,7 @@ class App:
             print("CanNotIncrementError: Can't add to 8 items")
             print("leo@Mac-mini Inventory % /Users/leo/.pyenv/versions/3.8.1/bin/python /Users/leo/Documents/Python/Inventory/inventory.py")
         except BoundaryAppendError:
-            print("BoundaryAppendError: Can't add to 4 kinds of items")
+            print("BoundaryAppendError: Can't add to 5 kinds of items")
             print("leo@Mac-mini Inventory % /Users/leo/.pyenv/versions/3.8.1/bin/python /Users/leo/Documents/Python/Inventory/inventory.py")
         except ItemNotFoundError:
             print("ItemNotFoundError: Item not found")
@@ -93,6 +93,7 @@ class Item_Selection:
         y_counter = 0
         for item_kind in self.selectable_items_kinds:
             pyxel.blt(item_kind[3], item_kind[4], 0, item_kind[0], item_kind[1], 16, 16)
+            
             y_counter += 30
 
 class Inventory:
@@ -136,8 +137,10 @@ class Inventory:
         y_counter = 0
         for item in self.items:
             item.draw(140, y_counter)
-            y_counter += 30
-        pyxel.rectb(140, 30 * self.selected_item_index, 16, 16, pyxel.COLOR_LIGHTBLUE)
+            y_counter += 20
+        for i in range(C.MAX_AMOUNT):
+            pyxel.rectb(140, (20 * i) + 10, 16, 16, pyxel.COLOR_BLACK)
+        pyxel.rectb(140, 20 * self.selected_item_index + 10, 16, 16, pyxel.COLOR_LIGHTBLUE)
             
             
 
@@ -150,7 +153,7 @@ class Item:
         return "Kind : " + self.kind[2] + " Amount: " + str(self.amount)  
 
     def draw(self, x, y):
-        pyxel.blt(x, y, 0, self.kind[0],  self.kind[1], 16, 16)
+        pyxel.blt(x, y + 10, 0, self.kind[0],  self.kind[1], 16, 16)
         pyxel.text(x + 16, y + 16, str(self.amount), pyxel.COLOR_BLACK)
 
 
