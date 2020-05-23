@@ -118,7 +118,10 @@ class Help_Screen:
         pyxel.text(10, 30, "HOW TO USE ITEM", pyxel.COLOR_NAVY)
         pyxel.text(20, 40, "Up and Down : Choose item", pyxel.COLOR_BLACK)
         pyxel.text(20, 50, "Enter key : Use Item", pyxel.COLOR_BLACK)
+        pyxel.text(10, 60, "HOW TO QUIT", pyxel.COLOR_NAVY)
         pyxel.text(20, 70, "Q : QUIT", pyxel.COLOR_BLACK)
+        pyxel.text(10, 80, "RULES", pyxel.COLOR_NAVY)
+        pyxel.text(20, 90, "Can only have 5 kinds and 8 items", pyxel.COLOR_BLACK)
         pyxel.text(10, 150, "R key : Return to Inventory", pyxel.COLOR_BLACK)
 
 
