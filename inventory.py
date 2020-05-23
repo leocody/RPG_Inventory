@@ -53,7 +53,16 @@ class Mainscreen:
 
         if pyxel.btnp(pyxel.KEY_5):
             self.inventory.add(Item(C.KIND_HELMET))
-        
+
+        if pyxel.btnp(pyxel.KEY_6):
+            self.inventory.add(Item(C.KIND_APPLE))
+      
+        if pyxel.btnp(pyxel.KEY_7):
+            self.inventory.add(Item(C.KIND_BOW))
+
+        if pyxel.btnp(pyxel.KEY_8):
+            self.inventory.add(Item(C.KIND_DIAMOND))
+
         if pyxel.btnp(pyxel.KEY_DOWN):
             self.inventory.select_down()
 
@@ -71,7 +80,10 @@ class Item_Selection:
             C.KIND_BOMB, 
             C.KIND_SHIELD, 
             C.KIND_SWORD, 
-            C.KIND_HELMET
+            C.KIND_HELMET,
+            C.KIND_APPLE,
+            C.KIND_BOW,
+            C.KIND_DIAMOND
         ]
 
     def select(self, item_number):
@@ -80,7 +92,7 @@ class Item_Selection:
     def draw(self):
         y_counter = 0
         for item_kind in self.selectable_items_kinds:
-            pyxel.blt(0, y_counter, 0, item_kind[0], item_kind[1], 16, 16)
+            pyxel.blt(item_kind[3], item_kind[4], 0, item_kind[0], item_kind[1], 16, 16)
             y_counter += 30
 
 class Inventory:
