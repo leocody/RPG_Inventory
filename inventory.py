@@ -32,7 +32,7 @@ class Mainscreen:
         self.item_selection = Item_Selection()
 
     def draw(self):
-        pyxel.cls(0)
+        pyxel.cls(pyxel.COLOR_LIME)
 
         self.inventory.draw()
         self.item_selection.draw()
@@ -43,16 +43,16 @@ class Mainscreen:
             self.inventory.add(Item(C.KIND_POSTION))
 
         if pyxel.btnp(pyxel.KEY_2):
-            self.inventory.add(Item(C.KIND_KEY))
+            self.inventory.add(Item(C.KIND_BOMB))
 
         if pyxel.btnp(pyxel.KEY_3):
-            self.inventory.add(Item(C.KIND_BOW))
-
-        if pyxel.btnp(pyxel.KEY_4):
             self.inventory.add(Item(C.KIND_SHIELD))
 
-        if pyxel.btnp(pyxel.KEY_5):
+        if pyxel.btnp(pyxel.KEY_4):
             self.inventory.add(Item(C.KIND_SWORD))
+
+        if pyxel.btnp(pyxel.KEY_5):
+            self.inventory.add(Item(C.KIND_HELMET))
         
         if pyxel.btnp(pyxel.KEY_DOWN):
             self.inventory.select_down()
@@ -60,7 +60,7 @@ class Mainscreen:
         if pyxel.btnp(pyxel.KEY_UP):
             self.inventory.select_up()
         
-        if pyxel.btnp(pyxel.KEY_SPACE):
+        if pyxel.btnp(pyxel.KEY_ENTER):
             self.inventory.use_selected_item()
         
 
@@ -68,10 +68,10 @@ class Item_Selection:
     def __init__(self):
         self.selectable_items_kinds = [
             C.KIND_POSTION, 
-            C.KIND_KEY, 
-            C.KIND_BOW, 
+            C.KIND_BOMB, 
             C.KIND_SHIELD, 
-            C.KIND_SWORD
+            C.KIND_SWORD, 
+            C.KIND_HELMET
         ]
 
     def select(self, item_number):
@@ -139,7 +139,7 @@ class Item:
 
     def draw(self, x, y):
         pyxel.blt(x, y, 0, self.kind[0],  self.kind[1], 16, 16)
-        pyxel.text(x + 16, y + 16, str(self.amount), pyxel.COLOR_GREEN)
+        pyxel.text(x + 16, y + 16, str(self.amount), pyxel.COLOR_BLACK)
 
 
     def increment(self):
