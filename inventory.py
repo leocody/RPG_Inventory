@@ -160,8 +160,10 @@ class Inventory:
             item.draw(140, y_counter)
             y_counter += 20
         for i in range(C.MAX_AMOUNT):
+         #Inventory Square
             pyxel.rectb(140, (20 * i) + 10, 16, 16, pyxel.COLOR_BLACK)
-        pyxel.rectb(140, 20 * self.selected_item_index + 10, 16, 16, pyxel.COLOR_LIGHTBLUE)
+        #Highlight
+        pyxel.rectb(140, 20 * self.selected_item_index + 10, 16, 16, pyxel.COLOR_PINK)
             
             
 
