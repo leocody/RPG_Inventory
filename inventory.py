@@ -7,13 +7,26 @@ class App:
         pyxel.init(C.SCREEN_WIDTH, C.SCREEN_HEIGHT, caption="Leo's Inventory", quit_key=True)
         pyxel.load("assets/Leo_Inventory.pyxres")
         self.mainscreen = Mainscreen()
+        self.helpscreen = Help_Screen()
+        self.current_screen = "Main"
         pyxel.run(self.update, self.draw)
 
     def draw(self):
-        self.mainscreen.draw()
+        if self.current_screen == "Main":
+            self.mainscreen.draw()
+        else:
+            self.helpscreen.draw()
+
         
 
     def update(self):
+        if pyxel.btnp(pyxel.KEY_H):
+            self.current_screen = "Help"
+            return
+        if pyxel.btnp(pyxel.KEY_R):
+            self.current_screen = "Main"
+            return
+
         try:
             self.mainscreen.update()
         except CanNotIncrement:
@@ -36,6 +49,7 @@ class Mainscreen:
 
         self.inventory.draw()
         self.item_selection.draw()
+        pyxel.text(10, 150, "H key: HELP", pyxel.COLOR_BLACK)
     
     def update(self):
 
@@ -92,7 +106,16 @@ class Mainscreen:
             self.inventory.use_selected_item()
             pyxel.playm(1, loop=False)
             
-        
+class Help_Screen:
+    def draw(self):
+        pyxel.cls(pyxel.COLOR_PINK)
+        pyxel.text(10, 5, "HOW TO ADD ITEM", pyxel.COLOR_NAVY)
+        pyxel.text(20, 15, "1-8 : Add Item to Inventory", pyxel.COLOR_BLACK)
+        pyxel.text(10, 30, "HOW TO USE ITEM", pyxel.COLOR_NAVY)
+        pyxel.text(20, 40, "Up and Down : Choose item", pyxel.COLOR_BLACK)
+        pyxel.text(20, 50, "Enter key : Use Item", pyxel.COLOR_BLACK)
+        pyxel.text(10, 150, "R key : Return to Inventory", pyxel.COLOR_BLACK)
+
 
 class Item_Selection:
     def __init__(self):
