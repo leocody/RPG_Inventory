@@ -11,19 +11,19 @@ class App:
 
     def draw(self):
         self.mainscreen.draw()
+        
 
     def update(self):
         try:
             self.mainscreen.update()
         except CanNotIncrement:
-            print("CanNotIncrementError: Can't add to 8 items")
-            print("leo@Mac-mini Inventory % /Users/leo/.pyenv/versions/3.8.1/bin/python /Users/leo/Documents/Python/Inventory/inventory.py")
+            pyxel.play(3, C.SE_ERROR)
+
         except BoundaryAppendError:
-            print("BoundaryAppendError: Can't add to 5 kinds of items")
-            print("leo@Mac-mini Inventory % /Users/leo/.pyenv/versions/3.8.1/bin/python /Users/leo/Documents/Python/Inventory/inventory.py")
+            pyxel.play(3, C.SE_ERROR)
+
         except ItemNotFoundError:
-            print("ItemNotFoundError: Item not found")
-            print("leo@Mac-mini Inventory % /Users/leo/.pyenv/versions/3.8.1/bin/python /Users/leo/Documents/Python/Inventory/inventory.py")
+            pyxel.play(3, C.SE_ERROR)
 
 
 class Mainscreen:
@@ -41,36 +41,57 @@ class Mainscreen:
 
         if pyxel.btnp(pyxel.KEY_1):
             self.inventory.add(Item(C.KIND_POSTION))
+            pyxel.playm(0, loop=False)
+            
 
         if pyxel.btnp(pyxel.KEY_2):
             self.inventory.add(Item(C.KIND_BOMB))
+            pyxel.playm(0, loop=False)
+            
 
         if pyxel.btnp(pyxel.KEY_3):
             self.inventory.add(Item(C.KIND_SHIELD))
+            pyxel.playm(0, loop=False)
+           
 
         if pyxel.btnp(pyxel.KEY_4):
             self.inventory.add(Item(C.KIND_SWORD))
+            pyxel.playm(0, loop=False)
+            
 
         if pyxel.btnp(pyxel.KEY_5):
             self.inventory.add(Item(C.KIND_HELMET))
+            pyxel.playm(0, loop=False)
+            
 
         if pyxel.btnp(pyxel.KEY_6):
             self.inventory.add(Item(C.KIND_APPLE))
+            pyxel.playm(0, loop=False)
+            
       
         if pyxel.btnp(pyxel.KEY_7):
             self.inventory.add(Item(C.KIND_BOW))
+            pyxel.playm(0, loop=False)
+            
 
         if pyxel.btnp(pyxel.KEY_8):
             self.inventory.add(Item(C.KIND_DIAMOND))
+            pyxel.playm(0, loop=False)
+            
 
         if pyxel.btnp(pyxel.KEY_DOWN):
             self.inventory.select_down()
+            pyxel.play(3, C.SE_SELECT)
+            
 
         if pyxel.btnp(pyxel.KEY_UP):
+            pyxel.play(3, C.SE_SELECT)
             self.inventory.select_up()
         
         if pyxel.btnp(pyxel.KEY_ENTER):
             self.inventory.use_selected_item()
+            pyxel.playm(1, loop=False)
+            
         
 
 class Item_Selection:
@@ -121,7 +142,7 @@ class Inventory:
     def select_up(self):
         self.selected_item_index -= 1
         self.selected_item_index += C.MAX_AMOUNT
-        self.selected_item_index %= 4
+        self.selected_item_index %= C.MAX_AMOUNT
 
     def use_selected_item(self):
         if len(self.items) == self.selected_item_index:
