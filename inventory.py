@@ -42,7 +42,8 @@ class App:
 class Mainscreen:
     def __init__(self):
         self.inventory = Inventory()
-        self.item_selection = Item_Selection()
+        self.item_selection = Item_Selection()  
+        pyxel.playm(C.MUSIC_BGM, loop=True)
 
     def draw(self):
         pyxel.cls(pyxel.COLOR_LIME)
@@ -91,6 +92,9 @@ class Mainscreen:
         if pyxel.btnp(pyxel.KEY_8):
             self.inventory.add(Item(C.KIND_DIAMOND))
             pyxel.playm(0, loop=False)
+        
+        if pyxel.btnp(pyxel.KEY_Q):
+            pyxel.quit()
             
 
         if pyxel.btnp(pyxel.KEY_DOWN):
@@ -114,6 +118,7 @@ class Help_Screen:
         pyxel.text(10, 30, "HOW TO USE ITEM", pyxel.COLOR_NAVY)
         pyxel.text(20, 40, "Up and Down : Choose item", pyxel.COLOR_BLACK)
         pyxel.text(20, 50, "Enter key : Use Item", pyxel.COLOR_BLACK)
+        pyxel.text(20, 70, "Q : QUIT", pyxel.COLOR_BLACK)
         pyxel.text(10, 150, "R key : Return to Inventory", pyxel.COLOR_BLACK)
 
 
@@ -164,8 +169,8 @@ class Inventory:
 
     def select_up(self):
         self.selected_item_index -= 1
-        self.selected_item_index += C.MAX_AMOUNT
-        self.selected_item_index %= C.MAX_AMOUNT
+        self.selected_item_index += C.MAX_KIND
+        self.selected_item_index %= C.MAX_KIND
 
     def use_selected_item(self):
         if len(self.items) == self.selected_item_index:
@@ -182,7 +187,7 @@ class Inventory:
         for item in self.items:
             item.draw(140, y_counter)
             y_counter += 20
-        for i in range(C.MAX_AMOUNT):
+        for i in range(C.MAX_KIND):
          #Inventory Square
             pyxel.rectb(140, (20 * i) + 10, 16, 16, pyxel.COLOR_BLACK)
         #Highlight
