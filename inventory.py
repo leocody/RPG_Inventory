@@ -1,30 +1,26 @@
 import pyxel
 import constant as C
 
-
 class App:
     def __init__(self):
         pyxel.init(C.SCREEN_WIDTH, C.SCREEN_HEIGHT, caption="Leo's Inventory", quit_key=True)
         pyxel.load("assets/Leo_Inventory.pyxres")
         self.mainscreen = Mainscreen()
         self.helpscreen = Help_Screen()
-        self.current_screen = "Main"
+        self.current_screen = self.mainscreen
         pyxel.run(self.update, self.draw)
 
     def draw(self):
-        if self.current_screen == "Main":
-            self.mainscreen.draw()
-        else:
-            self.helpscreen.draw()
+        self.current_screen.draw()
 
         
 
     def update(self):
         if pyxel.btnp(pyxel.KEY_H):
-            self.current_screen = "Help"
+            self.current_screen = self.helpscreen
             return
         if pyxel.btnp(pyxel.KEY_R):
-            self.current_screen = "Main"
+            self.current_screen = self.mainscreen
             return
 
         try:
